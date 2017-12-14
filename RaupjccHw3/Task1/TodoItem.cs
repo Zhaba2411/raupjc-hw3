@@ -66,7 +66,7 @@ namespace Task1
 
             public TodoItemLabel(string value)
             {
-                Id = int.Parse(Guid.NewGuid().ToString());
+                Id = Guid.NewGuid();
                 Value = value;
                 LabelTodoItems = new List<TodoItem>();
             }
