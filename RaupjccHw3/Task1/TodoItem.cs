@@ -35,6 +35,14 @@ namespace Task1
 
         public DateTime? DateDue { get; set; }
 
+        public TodoItem(string text)
+        {
+            Id = Guid.NewGuid();
+            Text = text;
+            DateCreated = DateTime.UtcNow;
+            Labels = new List<TodoItemLabel>();
+        }
+
         public TodoItem(string text, Guid userId)
         {
             Id = Guid.NewGuid();
@@ -43,6 +51,45 @@ namespace Task1
             UserId = userId;
             Labels = new List<TodoItemLabel>();
         }
+
+        public bool MarkAsCompleted()
+        {
+            if (!IsCompleted)
+            {
+                DateCompleted = DateTime.UtcNow;
+                return true;
+            }
+            return false;
+        }
+
+        public static bool operator ==(TodoItem i1, TodoItem i2)
+        {
+            if (ReferenceEquals(i1, i2))
+            {
+                return true;
+            }
+            if (ReferenceEquals(i1, null) || ReferenceEquals(i2, null))
+            {
+                return false;
+            }
+
+            return i1.Equals(i2);
+        }
+
+        public static bool operator !=(TodoItem i1, TodoItem i2)
+        {
+            return !(i1 == i2);
+        }
+        public override bool Equals(object obj)
+        {
+            return obj is TodoItem && ((TodoItem)obj).Id == Id;
+        }
+
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
+        }
+
         public TodoItem()
         {
             // entity framework needs this one
@@ -56,19 +103,31 @@ namespace Task1
         /// </ summary >
         public class TodoItemLabel 
         {
-            public Guid Id { get; set; }
+        public Guid Id { get; set; }
+
             public string Value { get; set; }
-           
-            /// <summary >
-            /// All TodoItems that are associated with this label
-            /// </ summary >
+
             public List<TodoItem> LabelTodoItems { get; set; }
 
-            public TodoItemLabel(string value)
+            public TodoItemLabel(string value) : this()
             {
                 Id = Guid.NewGuid();
                 Value = value;
+            }
+
+            public TodoItemLabel()
+            {
                 LabelTodoItems = new List<TodoItem>();
             }
-        }
+
+            public override bool Equals(object obj)
+            {
+                return obj is TodoItemLabel && ((TodoItemLabel)obj).Id == Id;
+            }
+
+            public override int GetHashCode()
+            {
+                return Id.GetHashCode();
+            }
+    }
 }

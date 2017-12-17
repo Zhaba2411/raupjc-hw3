@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Task1
 {
@@ -22,5 +23,7 @@ namespace Task1
         List<TodoItem> GetCompleted(Guid userId);
 
         List<TodoItem> GetFiltered(Func<TodoItem, bool> filterFunction, Guid userId);
+
+        void AddLabel(string labelText, Guid itemId);
     }
 }

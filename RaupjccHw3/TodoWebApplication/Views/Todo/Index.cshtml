@@ -1,0 +1,27 @@
+﻿@using TodoWebApplication.Models
+@model TodoWebApplication.Models.IndexViewModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Todo</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+</head>
+<body>
+    <h1>Todo</h1>
+    <div>
+        <a class="btn btn-primary" href="Todo/AddItem">Add new todo</a> <a href="/Todo/Completed">See completed todos</a>
+    </div>
+    @foreach (var todo in Model.TodoList)
+    {
+        @Html.Partial("ItemPartial", todo);
+    }
+    @if (Model.TodoList.Count == 0)
+    {
+        <div class="card card-body mx-auto" style="width: 20rem;">
+            <h4 class="card-title" align="center">You don't have any active todos.</h4>
+            <a class="btn btn-primary" href="/todo/additem">Add new todo</a>
+        </div>
+    }
+</body>
+</html>
