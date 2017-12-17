@@ -34,6 +34,10 @@ namespace TodoWebApplication
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
+            services.AddScoped<TodoDbContext>(c =>
+                new TodoDbContext(Configuration["ConnectionStrings:DefaultConnection"]));
+            services.AddTransient<ITodoRepository, TodoSqlRepository>();
+
             services.AddMvc()
                 .AddRazorPagesOptions(options =>
                 {
@@ -42,7 +46,6 @@ namespace TodoWebApplication
                 });
 
             services.AddTransient<TodoSqlRepository>();
-            services.AddTransient<ITodoRepository, TodoSqlRepository>();
             services.AddTransient<TodoDbContext>((s) =>
             {
                 return new TodoDbContext(Configuration["ConnectionStrings:DefaultConnection"]);
