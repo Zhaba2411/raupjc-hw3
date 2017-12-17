@@ -1,0 +1,27 @@
+﻿@model Todo.Models.CompletedViewModel
+
+<html>
+<head>
+    <title>Completed items</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+
+</head>
+<body>
+<h1>Completed Todos</h1>
+<a class="btn btn-primary" href="/todo/additem">Add new todo</a> <a href="/todo">See active Todos</a>
+<div>
+    @foreach (var todo in Model.TodoList)
+    {
+        @Html.Partial("ItemPartial", todo)
+    }
+</div>
+@if (Model.TodoList.Count == 0)
+{
+    <div class="card card-body mx-auto" style="width: 20rem;">
+        <h4 class="card-title" align="center">You don't have any completed todos.</h4>
+        <a class="btn btn-primary" href="/todo">See active todos</a>
+    </div>
+}
+
+</body>
+</html>
