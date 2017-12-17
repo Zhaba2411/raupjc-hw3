@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Task1
 {
+
     public class TodoSqlRepository : ITodoRepository
     {
         private readonly TodoDbContext _context;
+
         public TodoSqlRepository(TodoDbContext context)
         {
             _context = context;
@@ -55,7 +54,7 @@ namespace Task1
             _context.TodoItems.Remove(td);
             _context.SaveChanges();
             return true;
-            
+
         }
 
         public void Update(TodoItem todoItem, Guid userId)
@@ -109,6 +108,7 @@ namespace Task1
         {
             return _context.TodoItems.AsEnumerable().Where(t => t.UserId == userId).Where(filterFunction).ToList();
         }
+
         public void AddLabel(string labelText, Guid itemId)
         {
             TodoItem item = _context.TodoItems.FirstOrDefault(i => i.Id == itemId);
@@ -128,5 +128,6 @@ namespace Task1
             _context.SaveChanges();
         }
     }
-
 }
+
+

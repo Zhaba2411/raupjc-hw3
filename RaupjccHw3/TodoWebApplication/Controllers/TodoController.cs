@@ -81,7 +81,7 @@ namespace TodoWebApplication.Controllers
             item.DateDue = addTodoViewModel.DateDue;
             _repository.Add(item);
 
-            if (addTodoViewModel.Labels != null)
+           if (addTodoViewModel.Labels != null)
             {
                 string[] labels = addTodoViewModel.Labels.Split(',');
                 foreach (string label in labels)
